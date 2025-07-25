@@ -14,6 +14,7 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 flowery: ['"Bigshot One"', 'display'],
+                aclonica :['Aclonica', 'sans-serif']
             },
         },
     },
