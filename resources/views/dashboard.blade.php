@@ -35,7 +35,7 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <h1 class="text-sm font-semibold">
+                                            <h1 class="text-sm font-semibold capitalize">
                                                 {{ Auth::user()->name }}</h1>
                                             <p class="text-xs text-gray-500">
                                                 {{ Auth::user()->email }}</p>
