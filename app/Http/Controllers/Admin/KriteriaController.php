@@ -12,7 +12,7 @@ class KriteriaController extends Controller
      */
     public function index()
     {
-        return view('profile.admin.kriteria.index');
+        return view('admin.kriteria.index');
     }
 
     /**

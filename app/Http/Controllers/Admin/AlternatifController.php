@@ -12,7 +12,7 @@ class AlternatifController extends Controller
      */
     public function index()
     {
-        return view('profile.admin.alternatif.index');
+        return view('admin.alternatif.index');
     }
 
     /**
