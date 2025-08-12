@@ -1,11 +1,11 @@
 <x-admin-layout title="Dashboard">
     {{-- Navbar --}}
     <x-slot name="header">
-        <nav class="bg-white w-full shadow-md rounded-md">
+        <nav class="bg-white w-full shadow-sm rounded-none">
             <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 gap-4 sm:gap-0">
-                    <div class="flex items-center gap-3 sm:gap-6">
-                        <div class="bg-gradient-to-r from-blue-500 to-violet-500 shadow-md rounded-2xl py-2 px-2">
+                    <div class="flex items-center gap-4 sm:gap-8">
+                        <div class="bg-gradient-to-r from-blue-500 to-violet-500 rounded-2xl py-3 px-3 ml-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6 text-white">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -17,7 +17,7 @@
                                 {{ __('Dashboard') }}
                             </h1>
                             <p class="text-sm text-gray-500">
-                                {{ __('Welcome your dashboard!') }}
+                                {{ __('Welcome to your dashboard!') }}
                             </p>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"
-                                        class="mt-2 sm:mt-0 inline-flex items-center px-2 py-1 sm:px-4 sm:py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition">
+                                        class="mt-2 sm:mt-0 inline-flex items-center px-2 py-1 sm:px-4 sm:py-2 text-sm font-semibold rounded-sm text-red-600 border border-red-600 hover:text-red-500 hover:border-red-500 transition">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             class="size-5 mr-2">
                                             <path fill-rule="evenodd"
@@ -108,59 +108,6 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Table Card --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 sm:mt-6 w-full px-4">
-                <!-- Card 1 -->
-                <div class="bg-white shadow-md rounded-lg p-4 w-full">
-                    <div class="flex justify-between items-center text-base font-semibold text-gray-600">
-                        Total Income
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 sm:w-8 sm:h-8 text-blue-500">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
-                        </svg>
-                    </div>
-                    <div class="mt-2 flex items-center">
-                        <p class="text-lg sm:text-2xl font-bold text-gray-900">1.312.892</p>
-                        <span class="ml-3 text-green-500 text-sm sm:text-base"><i class="fa-solid fa-arrow-up"></i>
-                            30%</span>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white shadow-md rounded-lg p-4 w-full">
-                    <div class="flex justify-between items-center text-base font-semibold text-gray-600">
-                        Total Products
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 sm:w-8 sm:h-8 text-yellow-500">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
-                        </svg>
-                    </div>
-                    <div class="mt-2 flex items-center">
-                        <p class="text-xl sm:text-2xl font-medium text-gray-900">6.732</p>
-                        <span class="ml-3 text-green-500 text-sm sm:text-base"><i class="fa-solid fa-arrow-up"></i>
-                            23%</span>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white shadow-md rounded-lg p-4 w-full">
-                    <div class="flex justify-between items-center text-base font-semibold text-gray-600">
-                        Total Orders
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 sm:w-8 sm:h-8 text-green-500">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                        </svg>
-                    </div>
-                    <div class="mt-2 flex items-center">
-                        <p class="text-xl sm:text-2xl font-medium text-gray-900">412</p>
-                        <span class="ml-3 text-red-500 text-sm sm:text-base"><i class="fa-solid fa-arrow-down"></i>
-                            30%</span>
                     </div>
                 </div>
             </div>
