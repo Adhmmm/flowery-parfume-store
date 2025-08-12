@@ -1,7 +1,7 @@
 <x-admin-layout title="Produk">
     {{-- Header --}}
     <x-slot name="header">
-        <nav class="bg-white w-full shadow-md rounded-md">
+        <nav class="bg-white w-full shadow-sm rounded-none">
             <div class="flex justify-between items-center h-20 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-4 sm:gap-8">
                     <div class="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl py-3 px-3 ml-2">
@@ -31,12 +31,12 @@
     </x-slot>
 
     <div class="flex-1 px-2 sm:px-6 lg:px-12 overflow-y-auto">
-        <div class="bg-white p-6 pr-8 rounded-lg shadow-md">
+        <div class="bg-white p-6 pr-8 rounded-lg shadow-sm">
             <div class="relative flex justify-between items-center mt-4 md:mt-0">
                 <div>
-                    <h1 class="text-lg sm:text-lg lg:text-lg font-bold">Edit Data Produk</h1>
-                    <p class="text-sm sm:text-sm lg:text-sm font-normal text-gray-500">Silahkan isi form untuk
-                        mengubah produk parfum.</p>
+                    <h1 class="text-lg sm:text-lg lg:text-lg font-bold">{{ __('Edit Data Produk') }}</h1>
+                    <p class="text-sm sm:text-sm lg:text-sm font-normal text-gray-500">
+                        {{ __('Silahkan isi form untuk mengubah data produk parfum.') }}</p>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
             </div>
         @endif
 
-        <div class="bg-white p-6 mt-6 rounded-lg shadow-md">
+        <div class="bg-white p-6 mt-6 rounded-sm shadow-sm border border-gray-300">
             <form action="{{ route('admin.produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data"
                 class="space-y-6">
                 @csrf
@@ -61,41 +61,45 @@
                         <div>
                             <label for="nama" class="block text-sm font-medium text-gray-700">Nama Produk</label>
                             <input type="text" name="nama" id="nama" value="{{ old('nama', $produk->nama) }}"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring focus:ring-blue-300">
+                                class="mt-1 block w-full border border-gray-300 rounded-sm shadow-sm p-3 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400">
                         </div>
                     </div>
                     <div class="w-full">
                         <div>
-                            <label for="sku" class="block text-sm font-medium text-gray-700">SKU</label>
-                            <input type="text" name="sku" id="sku" value="{{ old('sku', $produk->sku) }}"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring focus:ring-blue-300">
+                            <label for="jenis_aroma" class="block text-sm font-medium text-gray-700">Jenis Aroma</label>
+                            <input type="text" name="jenis_aroma" id="sku"
+                                value="{{ old('jenis_aroma', $produk->jenis_aroma) }}"
+                                class="mt-1 block w-full border border-gray-300 rounded-sm shadow-sm p-3 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400">
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center justify-between gap-2 md:mt-0 mt-4">
                     <div class="w-full">
                         <div>
-                            <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
+                            <label for="rating_produk" class="block text-sm font-medium text-gray-700">Rating
+                                Produk</label>
+                            <input type="number" name="rating_produk" id="rating_produk"
+                                value="{{ old('rating_produk', $produk->rating_produk) }}" step="0.1" min="0"
+                                max="10" placeholder="Contoh: 4.5"
+                                class="mt-1 block w-full border border-gray-300 rounded-sm shadow-sm p-3 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400">
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <div>
+                            <label for="penjualan" class="block text-sm font-medium text-gray-700">Penjualan</label>
+                            <input type="number" name="penjualan" id="penjualan"
+                                value="{{ old('penjualan', $produk->penjualan) }}"
+                                class="mt-1 block w-full border border-gray-300 rounded-sm shadow-sm p-3 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between gap-2 md:mt-0 mt-4">
+                    <div class="w-full">
+                        <div>
+                            <label for="harga" class="block text-sm font-medium text-gray-700">Harga Produk</label>
                             <input type="number" name="harga" id="harga"
                                 value="{{ old('harga', $produk->harga) }}"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring focus:ring-blue-300">
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <div>
-                            <label for="stok" class="block text-sm font-medium text-gray-700">Stok</label>
-                            <input type="number" name="stok" id="stok" value="{{ old('stok', $produk->stok) }}"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring focus:ring-blue-300">
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between gap-2 md:mt-0 mt-4">
-                    <div class="w-full">
-                        <div>
-                            <label for="kategori" class="block text-sm font-medium text-gray-700">Kategori</label>
-                            <input type="text" name="kategori" id="kategori"
-                                value="{{ old('kategori', $produk->kategori) }}"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring focus:ring-blue-300">
+                                class="mt-1 block w-full border border-gray-300 rounded-sm shadow-sm p-3 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400">
                         </div>
                     </div>
                     <div class="w-full">
@@ -103,11 +107,11 @@
                             <label for="gambar" class="block text-sm font-medium text-gray-700">Gambar
                                 (opsional)</label>
                             <input type="file" name="gambar" id="gambar"
-                                class="mt-1 block w-full text-sm font-medium text-gray-400 border border-gray-300 rounded-lg p-2
-                                file:bg-blue-100 file:text-blue-700
-                                file:rounded-full file:border-0 file:text-sm
+                                class="mt-1 block w-full text-sm font-medium text-gray-400 border border-gray-300 rounded-sm p-2
+                                file:bg-gray-100 file:text-gray-700
+                                file:rounded-sm file:border-0 file:text-sm
                                 file:font-semibold file:mr-4 file:py-2 file:px-3
-                                hover:file:bg-blue-200">
+                                hover:file:bg-gray-200">
                         </div>
                     </div>
                 </div>

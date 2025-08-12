@@ -1,7 +1,7 @@
 <x-admin-layout title="Produk">
     {{-- Header --}}
     <x-slot name="header">
-        <nav class="bg-white w-full shadow-md rounded-md">
+        <nav class="bg-white w-full shadow-sm rounded-none">
             <div class="flex justify-between items-center h-20 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-4 sm:gap-8">
                     <div class="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl py-3 px-3 ml-2">
@@ -31,7 +31,7 @@
     </x-slot>
 
     <div class="flex-1 px-2 sm:px-6 lg:px-12 overflow-y-auto">
-        <div class="bg-white p-6 pr-8 rounded-lg shadow-md">
+        <div class="bg-white p-6 pr-8 rounded-lg shadow-sm">
             <div class="relative flex justify-between items-center mt-4 md:mt-0">
                 <div>
                     <h1 class="text-lg sm:text-xl lg:text-xl font-bold">Product Management</h1>
@@ -41,31 +41,33 @@
                 {{-- Button Tambah Data --}}
                 <div class="flex items-center justify-between gap-2 md:mt-0 mt-4">
                     <a href="{{ route('admin.produk.create') }}"
-                        class="px-3 py-2 flex items-center justify-between font-medium tracking-wide capitalize transition-colors duration-600 transform text-gray-50 bg-gradient-to-r from-violet-400 to-pink-300 border border-gray-200 rounded-md hover:from-emerald-400 hover:to-cyan-500 hover:text-slate-50 shadow-md">
+                        class="px-3 py-2 flex items-center justify-between font-medium tracking-wide capitalize transition-colors duration-600 transform text-gray-50 bg-gradient-to-r from-violet-400 to-pink-300 border border-gray-200 rounded-md hover:from-emerald-400 hover:to-cyan-500 hover:text-slate-50 shadow-sm">
                         + Add New Data</a>
                 </div>
             </div>
         </div>
 
-        <section class="container px-auto py-4 mx-auto">
-            {{-- Search --}}
-            <div class="bg-white p-6 pr-8 rounded-lg shadow-md">
-                <div class="relative flex justify-between items-center mt-4 md:mt-0">
-                    <span class="absolute">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-5 h-5 mx-3 text-gray-400">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                        </svg>
-                    </span>
-                    <input type="text" placeholder="Search"
-                        class="block w-full py-1.5 pr-5 shadow-sm text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
-                </div>
-                <div class="px-2 py-2">
-                    <p class="text-sm sm:text-sm lg:text-sm font-normal text-gray-500">Showing 10 of 10 products</p>
-                </div>
+        @if (session('success'))
+            <div
+                class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-300 text-green-700 rounded shadow-lg px-6 py-4 flex items-center gap-2 animate-fade-in"
+                x-data="{ show: true }"
+                x-init="setTimeout(() => show = false, 3000)"
+                x-show="show"
+                x-transition
+            >
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>{{ session('success') }}</span>
+                <button @click="show = false" class="ml-4 text-green-700 hover:text-green-900 focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
             </div>
+        @endif
 
+        <section class="container px-auto py-4 mx-auto">
             {{-- Table Product --}}
             <div class="flex flex-col mt-6">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -82,37 +84,37 @@
                                         </th>
 
                                         <th scope="col"
-                                            class="py-3.5 px-auto text-sm font-semibold text-left rtl:text-right text-neutral-50">
+                                            class="py-3.5 px-12 text-sm font-semibold text-left rtl:text-right text-neutral-50">
                                             <div class="flex items-center gap-x-3">
-                                                <span>PRODUK</span>
+                                                <span>Produk</span>
                                             </div>
                                         </th>
 
                                         <th scope="col"
                                             class="py-3.5 px-12 text-sm font-semibold text-left rtl:text-right text-neutral-50">
                                             <div class="flex items-center gap-x-3">
-                                                <span>SKU</span>
+                                                <span>Jenis Aroma</span>
                                             </div>
                                         </th>
 
                                         <th scope="col"
                                             class="py-3.5 px-6 text-sm font-semibold text-left rtl:text-right text-neutral-50">
                                             <div class="flex items-center gap-x-3">
-                                                <span>KATEGORI</span>
+                                                <span>Rating Produk</span>
                                             </div>
                                         </th>
 
                                         <th scope="col"
                                             class="py-3.5 px-12 text-sm font-semibold text-left rtl:text-right text-neutral-50">
                                             <div class="flex items-center gap-x-3">
-                                                <span>STOK</span>
+                                                <span>Penjualan</span>
                                             </div>
                                         </th>
 
                                         <th scope="col"
                                             class="py-3.5 px-4 text-sm font-semibold text-left rtl:text-right text-neutral-50">
                                             <div class="flex items-center gap-x-3">
-                                                <span>HARGA</span>
+                                                <span>Harga Produk</span>
                                             </div>
                                         </th>
 
@@ -128,18 +130,18 @@
                                             <td class="px-auto py-4 text-sm">
                                                 <div class="flex items-center gap-x-2">
                                                     <img class="w-10 h-10 rounded-md"
-                                                        src="{{ $produk->gambar ? asset('storage/' . $produk->gambar) : asset('storage/{$produk->gambar') }}"
-                                                        onerror="this.onerror=null;this.src='{{ asset('storage/{$produk->gambar') }}';" />
+                                                        src="{{ $produk->gambar ? asset('storage/' . $produk->gambar) : asset('images/default.png') }}"
+                                                        onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';" />
                                                     <div>
                                                         <h2 class="font-semibold">{{ $produk->nama }}</h2>
-                                                        <p class="text-sm text-gray-500">50ml</p>
+                                                        <p class="text-sm text-gray-500">30ml</p>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-8 py-4 text-sm">{{ $produk->sku }}</td>
-                                            <td class="px-2 py-4 text-sm capitalize">{{ $produk->kategori }}</td>
-                                            <td class="px-14 py-4 text-sm">{{ $produk->stok }}</td>
-                                            <td class="px-2 py-4 text-sm">Rp {{ number_format($produk->harga) }}</td>
+                                            <td class="px-8 py-4 text-sm">{{ $produk->jenis_aroma }}</td>
+                                            <td class="px-14 py-4 text-sm capitalize">{{ $produk->rating_produk }}</td>
+                                            <td class="px-16 py-4 text-sm">{{ $produk->penjualan }}</td>
+                                            <td class="px-8 py-4 text-sm">Rp {{ number_format($produk->harga) }}</td>
                                             <td class="px-auto py-4 text-sm whitespace-nowrap">
                                                 <div class="flex items-center gap-x-4">
                                                     {{-- Tombol Hapus --}}
@@ -164,8 +166,8 @@
                                                         class="text-gray-600 hover:text-yellow-500 transition-colors duration-200 focus:outline-none"
                                                         title="Edit Produk">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 24 24" stroke-width="1.5"
-                                                            stroke="currentColor" class="w-5 h-5">
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="w-5 h-5">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                                         </svg>

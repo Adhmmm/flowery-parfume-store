@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class ProdukController extends Controller
 {
@@ -22,26 +23,37 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
-        $validate = $request->validate([
-            'nama' => 'required',
-            'sku' => 'required',
-            'kategori' => 'required',
-            'stok' => 'required|integer',
-            'harga' => 'required|integer|min:10000',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png',
-        ]);
+        try {
+            $validate = $request->validate([
+                'nama' => 'required',
+                'jenis_aroma' => 'required',
+                'rating_produk' => 'required|numeric|min:0|max:5',
+                'penjualan' => 'required|integer|min:0',
+                'harga' => 'required|integer|min:0',
+                'gambar' => 'nullable|image|mimes:jpg,jpeg,png',
+            ]);
 
-        if ($request->hasFile('gambar')) {
-            $validate['gambar'] = $request->file('gambar')->store('produk', 'public');
+            if (is_string($validate['rating_produk'])) {
+                $validate['rating_produk'] = str_replace(',', '.', $validate['rating_produk']);
+            }
+
+            if ($request->hasFile('gambar')) {
+                $validate['gambar'] = $request->file('gambar')->store('produk', 'public');
+            }
+
+
+            Produk::create($validate);
+
+            return redirect()->route('admin.produk.index')->with('success', 'Produk berhasil ditambahkan.');
+        } catch (Throwable $e) {
+            return redirect()->route('admin.produk.index')->with('error', $e || 'Produk gagal ditambahkan.',);
         }
-
-        Produk::create($validate);
-        return redirect()->route('admin.produk.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
     public function show(string $id)
     {
-        //
+        $produk = Produk::findOrFail($id);
+        return view('admin.produk.show', compact('produk'));
     }
 
     public function edit(string $id)
@@ -54,15 +66,22 @@ class ProdukController extends Controller
     {
         $validate = $request->validate([
             'nama' => 'required',
-            'sku' => 'required',
-            'kategori' => 'required',
-            'stok' => 'required|integer',
-            'harga' => 'required|integer',
+            'jenis_aroma' => 'required',
+            'rating_produk' => 'required|numeric|min:0|max:5',
+            'penjualan' => 'required|integer|min:0',
+            'harga' => 'required|integer|min:0',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png',
         ]);
 
+        if (is_string($validate['rating_produk'])) {
+            $validate['rating_produk'] = str_replace(',', '.', $validate['rating_produk']);
+        }
+
         if ($request->hasFile('gambar')) {
-            if ($produk->gambar) Storage::delete('public/' . $produk->gambar);
+
+            if ($produk->gambar && Storage::disk('public')->exists($produk->gambar)) {
+                Storage::disk('public')->delete($produk->gambar);
+            }
             $validate['gambar'] = $request->file('gambar')->store('produk', 'public');
         }
 
