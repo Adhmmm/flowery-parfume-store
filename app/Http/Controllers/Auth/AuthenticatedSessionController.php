@@ -13,23 +13,41 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Display the login view admin.
      */
-    public function create(): View
+    public function showAdminLoginForm()
     {
-        return view('auth.login');
+        return view('auth.login-admin');
     }
 
     /**
+     * Display the login view customer.
+     */
+    public function showCustomerLoginForm()
+    {
+        return view('auth.login-customer');
+    }
+    /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function loginByRole(Request $request, string $role)
     {
-        $request->authenticate();
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        $request->session()->regenerate();
+        if (Auth::attempt(array_merge($credentials, ['role' => $role]))) {
+            $request = session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+            return $role === 'admin'
+                ? redirect()->route('admin.dashboard')
+                : redirect()->route('customer.home');
+        }
+        return back()->withErrors([
+            'email' => 'Login gagal',
+            'cek kembali email/password'
+        ]);
     }
 
     /**

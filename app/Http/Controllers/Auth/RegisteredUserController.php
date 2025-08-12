@@ -20,6 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
+        // Hanya tampilkan form register untuk customer, bukan admin
         return view('auth.register');
     }
 
@@ -30,6 +31,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validasi hanya untuk customer, admin tidak bisa register dari sini
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
@@ -37,10 +39,12 @@ class RegisteredUserController extends Controller
             'terms' => ['accepted'],
         ]);
 
+        // Buat user baru dengan role customer (misal field 'role' di tabel users)
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'customer', // pastikan field 'role' ada di tabel users
         ]);
 
         event(new Registered($user));

@@ -122,7 +122,7 @@
                 @enderror
 
 
-                <div class="flex items-start py-6 ml-2">
+                <div class="flex items-start py-4 ml-2">
                     <div class="flex items-center h-5">
                         <input id="terms" name="terms" type="checkbox"
                             class="border-gray-300 text-neutral-950 h-6 w-6 focus:outline-none focus:ring-0 focus:ring-offset-0">
@@ -144,7 +144,7 @@
                     <p class="text-xl text-gray-600">
                         Already have an Account?
                         <a class="text-xl font-normal text-zinc-950 hover:text-zinc-600 transitionzinc"
-                            href="{{ route('login') }}">
+                            href="{{ route('login.customer') }}">
                             {{ __('Login here') }}
                         </a>
                     </p>

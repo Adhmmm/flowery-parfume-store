@@ -36,9 +36,31 @@
             <div>
                 <p class="font-semibold text-gray-800 dark:text-white">Company</p>
                 <ul class="mt-4 space-y-2 text-sm">
-                    <li><a href="{{ route('login') }}"
-                            class="text-gray-600 hover:text-gray-300 dark:text-gray-200">Seller
-                            Centre</a></li>
+                    @auth
+                        @if(auth()->user()->role === 'admin')
+                            <li>
+                                <a href="{{ route('login.admin') }}"
+                                    class="text-gray-600 hover:text-gray-300 dark:text-gray-200">
+                                    Seller Centre
+                                </a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="#"
+                                    onclick="event.preventDefault(); alert('Hanya admin yang dapat mengakses Seller Centre.');"
+                                    class="text-gray-400 cursor-not-allowed dark:text-gray-500">
+                                    Seller Centre
+                                </a>
+                            </li>
+                        @endif
+                    @else
+                        <li>
+                            <a href="{{ route('login.admin') }}"
+                                class="text-gray-600 hover:text-gray-300 dark:text-gray-200">
+                                Seller Centre
+                            </a>
+                        </li>
+                    @endauth
                     <li><a href="#" class="text-gray-600 hover:text-gray-300 dark:text-gray-200">About Us</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-gray-300 dark:text-gray-200">Contact</a></li>
                 </ul>
