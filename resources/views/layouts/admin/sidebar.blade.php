@@ -17,7 +17,8 @@
     <!-- Sidebar -->
     <aside :class="{ '-translate-x-full': !openSidebar }"
         class="fixed md:static inset-y-0 left-0 z-50 w-72 max-w-full transform bg-white h-full transition-transform duration-300 ease-in-out md:translate-x-0 md:block shadow-md md:shadow-none">
-        <div class="flex justify-center items-center border border-r-1 border-gray-300 w-72 h-20 bg-white">
+        <div
+            class="flex justify-center items-center border-r rtl:border-r-0 rtl:border-l border-gray-300 w-72 h-20 bg-white">
             <a href="{{ route('admin.dashboard') }}" class="text-center px-8">
                 <img src="{{ asset('images/flowery-logo.png') }}" alt="logo">
             </a>
@@ -39,18 +40,18 @@
                     <span class="font-medium">Dashboard</span>
                 </x-nav-link>
 
-                <x-nav-link :href="route('admin.produk.index')" :active="request()->routeIs('/admin/produk')">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path
-                            d="M6 3a3 3 0 0 0-3 3v2.25a3 3 0 0 0 3 3h2.25a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6ZM15.75 3a3 3 0 0 0-3 3v2.25a3 3 0 0 0 3 3H18a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-2.25ZM6 12.75a3 3 0 0 0-3 3V18a3 3 0 0 0 3 3h2.25a3 3 0 0 0 3-3v-2.25a3 3 0 0 0-3-3H6ZM17.625 13.5a.75.75 0 0 0-1.5 0v2.625H13.5a.75.75 0 0 0 0 1.5h2.625v2.625a.75.75 0 0 0 1.5 0v-2.625h2.625a.75.75 0 0 0 0-1.5h-2.625V13.5Z" />
-                    </svg>
-
-                    <span class="font-medium">Produk</span>
-                </x-nav-link>
-
-                <hr class="my-4 border-gray-200 dark:border-gray-300" />
+                <label class="block px-5 mt-6 mb-2 text-sm font-semibold capitalize text-gray-400">Menu</label>
 
                 <div>
+                    <x-nav-link :href="route('admin.produk.index')" :active="request()->routeIs('/admin/produk')">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path
+                                d="M6 3a3 3 0 0 0-3 3v2.25a3 3 0 0 0 3 3h2.25a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6ZM15.75 3a3 3 0 0 0-3 3v2.25a3 3 0 0 0 3 3H18a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-2.25ZM6 12.75a3 3 0 0 0-3 3V18a3 3 0 0 0 3 3h2.25a3 3 0 0 0 3-3v-2.25a3 3 0 0 0-3-3H6ZM17.625 13.5a.75.75 0 0 0-1.5 0v2.625H13.5a.75.75 0 0 0 0 1.5h2.625v2.625a.75.75 0 0 0 1.5 0v-2.625h2.625a.75.75 0 0 0 0-1.5h-2.625V13.5Z" />
+                        </svg>
+
+                        <span class="font-medium">Produk</span>
+                    </x-nav-link>
+
                     <x-nav-link :href="route('admin.kriteria.index')" :active="request()->routeIs('/admin/kriteria')">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path fill-rule="evenodd"
@@ -58,7 +59,7 @@
                                 clip-rule="evenodd" />
                         </svg>
 
-                        <span class="font-medium">Kriteria SPK</span>
+                        <span class="font-medium">Kriteria</span>
                     </x-nav-link>
                     <x-nav-link :href="route('admin.alternatif.index')" :active="request()->routeIs('admin/alternatif')">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -69,7 +70,7 @@
                                 d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
                         </svg>
 
-                        <span class="font-medium">Penilaian Alternatif</span>
+                        <span class="font-medium">Nilai Kriteria</span>
                     </x-nav-link>
                     <x-nav-link :href="route('admin.kriteria.index')" :active="request()->routeIs('admin/kriteria')">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -79,7 +80,7 @@
                             <path d="M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 0 1-3 0V6.75Z" />
                         </svg>
 
-                        <span class="font-medium">Hasil SPK</span>
+                        <span class="font-medium">Hasil SAW</span>
                     </x-nav-link>
                 </div>
             </nav>
