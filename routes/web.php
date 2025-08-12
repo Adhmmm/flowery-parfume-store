@@ -33,17 +33,27 @@ Route::get('/', function () {
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/produk', ProdukController::class)->names([
-        'index' => 'produk.index'
+        'index' => 'produk.index',
+        'create' => 'produk.create',
+        'store' => 'produk.store',
+        'show' => 'produk.show',
+        'edit' => 'produk.edit',
+        'update' => 'produk.update',
+        'destroy' => 'produk.destroy'
     ]);
-    
+
     Route::resource('/kriteria', KriteriaController::class)->names([
-        'index' => 'kriteria.index'
+        'index' => 'kriteria.index',
+        'create' => 'kriteria.create',
+        'store' => 'kriteria.store',
+        'edit' => 'kriteria.edit',
+        'update' => 'kriteria.update',
+        'destroy' => 'kriteria.destroy'
     ]);
 
     Route::resource('/alternatif', AlternatifController::class)->names([
         'index' => 'alternatif.index'
     ]);
-
 });
 
 // customer Customer
