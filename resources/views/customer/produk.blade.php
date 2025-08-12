@@ -5,7 +5,7 @@
             @foreach ($produk as $item)
                 <div class="bg-white shadow p-6 rounded">
                     <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->nama }}"
-                        class="w-full h-96 object-cover mb-4 rounded">
+                        class="w-full h-5/6 object-cover mb-4 rounded">
                     <h3 class="font-semibold">{{ $item->nama }}</h3>
                     <p class="text-sm text-gray-600">Rp{{ number_format($item->harga, 0, ',', '.') }}</p>
                 </div>
