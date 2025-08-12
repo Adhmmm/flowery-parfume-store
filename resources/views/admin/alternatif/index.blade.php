@@ -1,7 +1,7 @@
 <x-admin-layout title="Penilaian Alternatif">
     {{-- Header --}}
     <x-slot name="header">
-        <nav class="bg-white w-full shadow-md rounded-md">
+        <nav class="bg-white w-full shadow-sm rounded-none">
             <div class="flex justify-between items-center h-20 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-4 sm:gap-8">
                     <div class="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl py-3 px-3 ml-2">
@@ -14,10 +14,10 @@
                     </div>
                     <div class="px-2 sm:-ml-4">
                         <h1 class="text-lg sm:text-xl lg:text-xl font-bold">
-                            {{ __('Alternative Assessment') }}
+                            {{ __('Nilai Kriteria') }}
                         </h1>
                         <p class="text-sm sm:text-sm lg:text-sm font-normal text-gray-500">
-                            {{ __('Manage alternative assessment') }}
+                            {{ __('Manage nilai kriteria') }}
                         </p>
                     </div>
                 </div>
@@ -32,12 +32,11 @@
     </x-slot>
     {{-- Content Border --}}
     <div class="flex-1 px-2 sm:px-6 lg:px-12 overflow-y-auto">
-        <div class="bg-white p-6 pr-8 rounded-lg shadow-md">
+        <div class="bg-white p-6 pr-8 rounded-lg shadow-sm">
             <div class="relative flex justify-between items-center mt-4 md:mt-0">
                 <div>
-                    <h1 class="text-lg sm:text-xl lg:text-xl font-bold">Assessment of perfume alternatives</h1>
-                    <p class="text-sm sm:text-sm lg:text-sm font-normal text-gray-500">View, add, and manage the
-                        criteria used for evaluating parfume products.</p>
+                    <h1 class="text-lg sm:text-xl lg:text-xl font-bold">{{ __('Nilai Kriteria Management')}}</h1>
+                    <p class="text-sm sm:text-sm lg:text-sm font-normal text-gray-500">{{ __('Manage nilai kriteria for evaluating normalisasi') }}</p>
                 </div>
                 {{-- Button Tambah Data --}}
                 <div class="flex items-center justify-between gap-2 md:mt-0 mt-4">
@@ -47,50 +46,6 @@
                 </div>
             </div>
         </div>
-        {{-- Form Kriteria --}}
-        {{-- <form>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mx-auto mt-6">
-            <div>
-                <label class="text-gray-800 font-semibold" for="kode">Kode Kriteria</label>
-                <input type="text" id="kode" name="kode"
-                    class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    placeholder="Masukkan kode kriteria">
-            </div>
-            <div>
-                <label class="text-gray-800 font-semibold" for="nama">Nama Kriteria</label>
-                <input type="text" id="nama" name="nama"
-                    class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    placeholder="Masukkan nama kriteria">
-            </div>
-            <div>
-                <label class="text-gray-800 font-semibold" for="bobot">Bobot Nilai</label>
-                <input type="number" id="kriteria" name="kriteria" step="0.01" min="0" max="1"
-                    value="0"
-                    class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    placeholder="Masukkan bobot nilai">
-            </div>
-            <div>
-                <label class="text-gray-800 font-semibold" for="jenis_kriteria">Jenis
-                    Kriteria</label>
-                <select name="jenis_kriteria" id="jenis_kriteria"
-                    class="w-full px-4 py-2 bg-white border border-gray-300 dark-border-gray-400 rounded-md text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 sm:text-sm">
-                    <option value="">-- Pilih Jenis Kriteria --</option>
-                    <option value="benefit">Benefit</option>
-                    <option value="cost">Cost</option>
-                </select>
-            </div>
-            <div class="items-center justify-between mt-2">
-                <button type="submit"
-                    class="px-4 py-2 bg-white text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
-                    Simpan
-                </button>
-                <button type="submit"
-                    class="px-6 py-2 bg-white text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
-                    Batal
-                </button>
-            </div>
-        </div>
-    </form> --}}
 
         {{-- Table Kriteria --}}
         <section class="container px-auto py-6 mx-auto">
