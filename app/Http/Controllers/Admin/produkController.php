@@ -12,7 +12,7 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $produks = Produk::latest()->paginate(10);
+        $produks = Produk::latest()->paginate(5);
         return view('admin.produk.index', compact('produks'));
     }
 
@@ -44,16 +44,16 @@ class ProdukController extends Controller
 
             Produk::create($validate);
 
-            return redirect()->route('admin.produk.index')->with('success', 'Produk berhasil ditambahkan.');
+            return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan.');
         } catch (Throwable $e) {
-            return redirect()->route('admin.produk.index')->with('error', $e || 'Produk gagal ditambahkan.',);
+            return redirect()->route('produk.index')->with('error', $e || 'Produk gagal ditambahkan.',);
         }
     }
 
     public function show(string $id)
     {
         $produk = Produk::findOrFail($id);
-        return view('admin.produk.show', compact('produk'));
+        return view('produk.show', compact('produk'));
     }
 
     public function edit(string $id)
@@ -87,13 +87,13 @@ class ProdukController extends Controller
 
         $produk->update($validate);
 
-        return redirect()->route('admin.produk.index')->with('success', 'Produk berhasil diupdate.');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil diupdate.');
     }
 
     public function destroy(Produk $produk)
     {
         if ($produk->gambar) Storage::delete('public/' . $produk->gambar);
         $produk->delete();
-        return redirect()->route('admin.produk.index')->with('success', 'Produk berhasil dihapus.');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');
     }
 }

@@ -38,7 +38,7 @@ class KriteriaController extends Controller
             'tipe_kriteria' => 'required|in:benefit,cost'
         ]));
 
-        return redirect()->route('admin.kriteria.index')->with('success', 'Kriteria berhasil disimpan');
+        return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil disimpan');
     }
 
     /**
@@ -61,7 +61,7 @@ class KriteriaController extends Controller
             'bobot' => 'required|numeric|min:0|max:1',
             'tipe_kriteria' => 'required|in:benefit,cost'
         ]));
-        return redirect()->route('admin.kriteria.index')->with('success', 'Data Kriteria berhasil diperbarui');
+        return redirect()->route('kriteria.index')->with('success', 'Data Kriteria berhasil diperbarui');
     }
 
     /**
@@ -70,6 +70,6 @@ class KriteriaController extends Controller
     public function destroy(string $id)
     {
         Kriteria::destroy($id);
-        return redirect()->route('admin.kriteria.index')->with('success', 'Data Kriteria berhasil dihapus');
+        return redirect()->route('kriteria.index')->with('success', 'Data Kriteria berhasil dihapus');
     }
 }
