@@ -22,16 +22,16 @@ use App\Http\Controllers\Admin\AlternatifController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('customer.home');
-})->name('/');
+    return view('customer.home');
+})->name('customer.home');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-// For Admin
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
+    
     Route::resource('/produk', ProdukController::class)->names([
         'index' => 'produk.index',
         'create' => 'produk.create',
@@ -56,13 +56,12 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     ]);
 });
 
-// customer Customer
-Route::controller(CustomerController::class)->group(function () {
-    Route::get('/', 'home')->name('customer.home');
-    Route::get('/produk', 'produk')->name('customer.produk');
-    Route::get('/about', 'about')->name('customer.about');
-    Route::get('/catalog', 'catalog')->name('customer.catalog');
-    Route::get('/contact', 'contact')->name('customer.contact');
+Route::middleware(['auth', 'role:customer'])->group(function () {
+    Route::get('/customer', [CustomerController::class, 'home'])->name('customer.home');
+    Route::get('/customer/produk', [CustomerController::class, 'produk'])->name('customer.produk');
+    Route::get('/customer/about', [CustomerController::class, 'about'])->name('customer.about');
+    Route::get('/customer/catalog', [CustomerController::class, 'catalog'])->name('customer.catalog');
+    Route::get('/customer/contact', [CustomerController::class, 'contact'])->name('customer.contact');
 });
 
 Route::middleware(['auth'])->group(function () {
