@@ -1,5 +1,4 @@
 <x-admin-layout title="Produk">
-    {{-- Header --}}
     <x-slot name="header">
         <nav class="bg-white w-full shadow-sm rounded-none">
             <div class="flex justify-between items-center h-20 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,7 +51,7 @@
         @endif
 
         <div class="bg-white p-6 mt-6 rounded-sm shadow-sm border border-gray-300">
-            <form action="{{ route('admin.produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data"
                 class="space-y-6">
                 @csrf
                 @method('PUT')
@@ -117,7 +116,7 @@
                 </div>
 
                 <div class="flex justify-end gap-3">
-                    <a href="{{ route('admin.produk.index') }}"
+                    <a href="{{ route('produk.index') }}"
                         class="inline-block px-6 py-2 border border-gray-400 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-100 transition">
                         Cancel
                     </a>

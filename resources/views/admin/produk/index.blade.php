@@ -1,5 +1,4 @@
 <x-admin-layout title="Produk">
-    {{-- Header --}}
     <x-slot name="header">
         <nav class="bg-white w-full shadow-sm rounded-none">
             <div class="flex justify-between items-center h-20 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,9 +37,8 @@
                     <p class="text-sm sm:text-sm lg:text-sm font-normal text-gray-500">Manage your parfume products
                         inventory</p>
                 </div>
-                {{-- Button Tambah Data --}}
                 <div class="flex items-center justify-between gap-2 md:mt-0 mt-4">
-                    <a href="{{ route('admin.produk.create') }}"
+                    <a href="{{ route('produk.create') }}"
                         class="px-3 py-2 flex items-center justify-between font-medium tracking-wide capitalize transition-colors duration-600 transform text-gray-50 bg-gradient-to-r from-violet-400 to-pink-300 border border-gray-200 rounded-md hover:from-emerald-400 hover:to-cyan-500 hover:text-slate-50 shadow-sm">
                         + Add New Data</a>
                 </div>
@@ -48,27 +46,22 @@
         </div>
 
         @if (session('success'))
-            <div
-                class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-300 text-green-700 rounded shadow-lg px-6 py-4 flex items-center gap-2 animate-fade-in"
-                x-data="{ show: true }"
-                x-init="setTimeout(() => show = false, 3000)"
-                x-show="show"
-                x-transition
-            >
-                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            <div class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-300 text-green-700 rounded shadow-lg px-6 py-4 flex items-center gap-2 animate-fade-in"
+                x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show" x-transition>
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
                 <span>{{ session('success') }}</span>
                 <button @click="show = false" class="ml-4 text-green-700 hover:text-green-900 focus:outline-none">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
         @endif
 
         <section class="container px-auto py-4 mx-auto">
-            {{-- Table Product --}}
             <div class="flex flex-col mt-6">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -126,7 +119,9 @@
                                 <tbody class="bg-white divide-y divide-slate-200">
                                     @foreach ($produks as $produk)
                                         <tr>
-                                            <td class="px-8 py-4 text-sm">{{ $loop->iteration }}</td>
+                                            <td class="px-8 py-4 text-sm">
+                                                {{ ($produks->currentPage() - 1) * $produks->perPage() + $loop->iteration }}
+                                            </td>
                                             <td class="px-auto py-4 text-sm">
                                                 <div class="flex items-center gap-x-2">
                                                     <img class="w-10 h-10 rounded-md"
@@ -144,8 +139,7 @@
                                             <td class="px-8 py-4 text-sm">Rp {{ number_format($produk->harga) }}</td>
                                             <td class="px-auto py-4 text-sm whitespace-nowrap">
                                                 <div class="flex items-center gap-x-4">
-                                                    {{-- Tombol Hapus --}}
-                                                    <form action="{{ route('admin.produk.destroy', $produk->id) }}"
+                                                    <form action="{{ route('produk.destroy', $produk->id) }}"
                                                         method="POST"
                                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">
                                                         @csrf
@@ -161,13 +155,13 @@
                                                             </svg>
                                                         </button>
                                                     </form>
-                                                    {{-- Tombol Edit --}}
-                                                    <a href="{{ route('admin.produk.edit', $produk->id) }}"
+
+                                                    <a href="{{ route('produk.edit', $produk->id) }}"
                                                         class="text-gray-600 hover:text-yellow-500 transition-colors duration-200 focus:outline-none"
                                                         title="Edit Produk">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                            class="w-5 h-5">
+                                                            viewBox="0 0 24 24" stroke-width="1.5"
+                                                            stroke="currentColor" class="w-5 h-5">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                                         </svg>
@@ -184,42 +178,63 @@
             </div>
 
             <div class="flex items-center justify-between mt-6">
-                <a href="#"
-                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                    </svg>
-
-                    <span>
-                        previous
+                @if ($produks->onFirstPage())
+                    <span
+                        class="flex items-center px-5 py-2 text-sm text-gray-400 bg-white border rounded-md gap-x-2 cursor-not-allowed">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                        </svg>
+                        <span>Previous</span>
                     </span>
-                </a>
+                @else
+                    <a href="{{ $produks->previousPageUrl() }}"
+                        class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                        </svg>
+                        <span>Previous</span>
+                    </a>
+                @endif
 
                 <div class="flex flex-wrap justify-center items-center gap-2 text-sm">
-                    <a href="#" class="px-2 py-1 bg-blue-100 text-blue-800 rounded">1</a>
-                    <a href="#"
-                        class="px-2 py-1 hover:bg-blue-100 hover:text-blue-800 text-gray-900 rounded">2</a>
-                    <a href="#"
-                        class="px-2 py-1 hover:bg-blue-100 hover:text-blue-800 text-gray-900 rounded">3</a>
-                    <span class="px-2 py-1 text-sm text-gray-950 rounded-md">...</span>
-                    <a href="#"
-                        class="px-2 py-1 hover:bg-blue-100 hover:text-blue-800 text-gray-900 rounded">5</a>
+                    @php
+                        $start = ($produks->currentPage() - 1) * $produks->perPage() + 1;
+                    @endphp
+                    @for ($page = 1; $page <= $produks->lastPage(); $page++)
+                        @if ($page == $produks->currentPage())
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded">{{ $page }}</span>
+                        @else
+                            <a href="{{ $produks->url($page) }}"
+                                class="px-2 py-1 text-gray-900 rounded hover:bg-gray-100">{{ $page }}</a>
+                        @endif
+                    @endfor
                 </div>
 
-                <a href="#"
-                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100">
-                    <span>
-                        Next
+                @if ($produks->hasMorePages())
+                    <a href="{{ $produks->nextPageUrl() }}"
+                        class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100">
+                        <span>Next</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                        </svg>
+                    </a>
+                @else
+                    <span
+                        class="flex items-center px-5 py-2 text-sm text-gray-400 bg-white border rounded-md gap-x-2 cursor-not-allowed">
+                        <span>Next</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                        </svg>
                     </span>
-
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                    </svg>
-                </a>
+                @endif
             </div>
         </section>
     </div>
