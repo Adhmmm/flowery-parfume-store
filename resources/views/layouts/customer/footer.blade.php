@@ -37,7 +37,7 @@
                 <p class="font-semibold text-gray-800 dark:text-white">Company</p>
                 <ul class="mt-4 space-y-2 text-sm">
                     @auth
-                        @if(auth()->user()->role === 'admin')
+                        @if (auth()->user()->role === 'admin')
                             <li>
                                 <a href="{{ route('login.admin') }}"
                                     class="text-gray-600 hover:text-gray-300 dark:text-gray-200">
@@ -47,7 +47,7 @@
                         @else
                             <li>
                                 <a href="#"
-                                    onclick="event.preventDefault(); alert('Hanya admin yang dapat mengakses Seller Centre.');"
+                                    onclick="event.preventDefault(); Swal.fire({icon: 'info', title: 'Akses Ditolak', text: 'Hanya admin yang dapat mengakses Seller Centre.', showConfirmButton: false, timer: 2000, position: 'top'});"
                                     class="text-gray-400 cursor-not-allowed dark:text-gray-500">
                                     Seller Centre
                                 </a>
@@ -84,4 +84,5 @@
             <p>Copyright © {{ date('Y') }} Flowery Parfum - All rights reserved.</p>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </footer>
