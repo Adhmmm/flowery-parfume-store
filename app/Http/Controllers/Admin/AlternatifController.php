@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Produk;
+use App\Models\Kriteria;
+use App\Models\NilaiKriteria;
 use Illuminate\Http\Request;
 
 class AlternatifController extends Controller
@@ -12,7 +15,8 @@ class AlternatifController extends Controller
      */
     public function index()
     {
-        return view('admin.alternatif.index');
+        $nilai = NilaiKriteria::with(['produk', 'kriteria'])->get();
+        return view('admin.alternatif.index', compact('nilai'));
     }
 
     /**
@@ -20,7 +24,9 @@ class AlternatifController extends Controller
      */
     public function create()
     {
-        //
+        $produks = Produk::all();
+        $kriterias = Kriteria::all();
+        return view('admin.alternatif.create', compact('produks', 'kriterias'));
     }
 
     /**
@@ -28,38 +34,52 @@ class AlternatifController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'produk_id' => 'required',
+            'kriteria_id' => 'required',
+            'nilai' => 'required|numeric|min:0'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        NilaiKriteria::create($request->all());
+        return redirect()->route('alternatif.index')->with('success', 'Nilai Kriteria berhasil ditambahkan');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $nilai = NilaiKriteria::findOrFail($id);
+        $produks = Produk::all();
+        $kriterias = Kriteria::all();
+        return view('admin.alternatif.edit', compact('nilai', 'produks', 'kriterias'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'produk_id' => 'required',
+            'kriteria_id' => 'required',
+            'nilai' => 'required|numeric|min:0'
+        ]);
+
+        $nilai = NilaiKriteria::findOrFail($id);
+        $nilai->update($request->all());
+
+        return redirect()->route('alternatif.index')->with('success', 'Nilai Kriteria berhasil diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $nilai = NilaiKriteria::findOrFail($id);
+        $nilai->delete();
+
+        return redirect()->route('alternatif.index')->with('success', 'Nilai Kriteria berhasil dihapus');
     }
 }
