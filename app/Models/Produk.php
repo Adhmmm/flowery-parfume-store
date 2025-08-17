@@ -9,5 +9,22 @@ class Produk extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'jenis_aroma', 'rating_produk', 'penjualan', 'harga', 'gambar'];
+    protected $fillable = [
+        'nama',
+        'jenis_aroma',
+        'rating_produk',
+        'penjualan',
+        'harga',
+        'gambar'
+    ];
+
+    public function NilaiKriteria()
+    {
+        return $this->belongsTo(NilaiKriteria::class, 'produk_id', 'id');
+    }
+
+    public function HasilSaw()
+    {
+        return $this->hasOne(HasilSaw::class, 'produk_id', 'id');
+    }
 }
