@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\ProdukController;
-use App\Http\Controllers\Admin\KriteriaController;
+
 use App\Http\Controllers\Customer\CustomerController;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AlternatifController;
+use App\Http\Controllers\Admin\KriteriaController;
+use App\Http\Controllers\Admin\ProdukController;
+use App\Http\Controllers\Admin\HasilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
-    
+
     Route::resource('/produk', ProdukController::class)->names([
         'index' => 'produk.index',
         'create' => 'produk.create',
@@ -52,8 +54,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     ]);
 
     Route::resource('/alternatif', AlternatifController::class)->names([
-        'index' => 'alternatif.index'
+        'index' => 'alternatif.index',
+        'create' => 'alternatif.create',
+        'store' => 'alternatif.store',
+        'edit' => 'alternatif.edit',
+        'update' => 'alternatif.update',
+        'destroy' => 'alternatif.destroy'
     ]);
+
+    Route::get('/hasil', [HasilController::class, 'hasil'])->name('hasil');
 });
 
 Route::middleware(['auth', 'role:customer'])->group(function () {
