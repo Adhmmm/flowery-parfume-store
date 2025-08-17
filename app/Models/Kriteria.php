@@ -17,7 +17,8 @@ class Kriteria extends Model
         'tipe_kriteria'
     ];
 
-    // public function nilai() {
-    //     return $this->hasMany(NilaiKriteria::class);
-    // }
+    public function nilaiKriteria()
+    {
+        return $this->hasMany(NilaiKriteria::class, 'kriteria_id', 'id');
+    }
 }
