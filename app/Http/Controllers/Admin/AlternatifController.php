@@ -15,8 +15,22 @@ class AlternatifController extends Controller
      */
     public function index()
     {
-        $nilai = NilaiKriteria::with(['produk', 'kriteria'])->get();
-        return view('admin.alternatif.index', compact('nilai'));
+        $produks = Produk::all();
+        $kriterias = Kriteria::all();
+        $nilaiKriterias = NilaiKriteria::with(['produk', 'kriteria'])->get();
+
+        $data = [];
+        foreach ($produks as $produk) {
+            foreach ($kriterias as $kriteria) {
+                $nilai = $nilaiKriterias
+                    ->where('produk_id', $produk->id)
+                    ->where('kriteria_id', $kriteria->id)
+                    ->first();
+
+                $data[$produk->id][$kriteria->id] = $nilai ? $nilai->nilai : '-';
+            }
+        }
+        return view('admin.alternatif.index', compact('kriterias', 'produks', 'data'));
     }
 
     /**
@@ -41,33 +55,46 @@ class AlternatifController extends Controller
         ]);
 
         NilaiKriteria::create($request->all());
+
         return redirect()->route('alternatif.index')->with('success', 'Nilai Kriteria berhasil ditambahkan');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($produk_id)
     {
-        $nilai = NilaiKriteria::findOrFail($id);
-        $produks = Produk::all();
+        $nilaiKriterias = NilaiKriteria::where('produk_id', $produk_id)->get()->keyBy('kriteria_id');
+        $produks = Produk::findOrFail($produk_id);
         $kriterias = Kriteria::all();
-        return view('admin.alternatif.edit', compact('nilai', 'produks', 'kriterias'));
+
+        return view('admin.alternatif.edit', compact('produks', 'kriterias', 'nilaiKriterias'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $produk_id)
     {
-        $request->validate([
-            'produk_id' => 'required',
-            'kriteria_id' => 'required',
-            'nilai' => 'required|numeric|min:0'
-        ]);
+        foreach ($request->nilai as $kriteria_id => $nilaiKriterias) {
+            NilaiKriteria::updateOrCreate(
+                [
+                    'produk_id' => $produk_id,
+                    'kriteria_id' => $kriteria_id,
+                ],
+                [
+                    'nilai' => $nilaiKriterias
+                ]
+            );
+        }
+        // $request->validate([
+        //     'produk_id' => 'required',
+        //     'kriteria_id' => 'required',
+        //     'nilai' => 'required|numeric|min:0'
+        // ]);
 
-        $nilai = NilaiKriteria::findOrFail($id);
-        $nilai->update($request->all());
+        // $nilaiKriterias = NilaiKriteria::findOrFail($id);
+        // $nilaiKriterias->update($request->all());
 
         return redirect()->route('alternatif.index')->with('success', 'Nilai Kriteria berhasil diperbarui');
     }
@@ -77,8 +104,8 @@ class AlternatifController extends Controller
      */
     public function destroy($id)
     {
-        $nilai = NilaiKriteria::findOrFail($id);
-        $nilai->delete();
+        $nilaiKriterias = NilaiKriteria::findOrFail($id);
+        $nilaiKriterias->delete();
 
         return redirect()->route('alternatif.index')->with('success', 'Nilai Kriteria berhasil dihapus');
     }

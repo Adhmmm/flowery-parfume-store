@@ -9,7 +9,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
                         </svg>
-
                     </div>
                     <div class="px-2 sm:-ml-4">
                         <h1 class="text-lg sm:text-xl lg:text-xl font-bold">
@@ -40,12 +39,28 @@
                 </div>
 
                 <div class="flex items-center justify-between gap-2 md:mt-0 mt-4">
-                    <a href="#"
+                    <a href="{{ route('alternatif.create') }}"
                         class="px-3 py-2 flex items-center justify-between font-medium tracking-wide capitalize transition-colors duration-600 transform text-gray-50 bg-gradient-to-r from-violet-400 to-pink-300 border border-gray-200 rounded-md hover:from-emerald-400 hover:to-cyan-500 hover:text-slate-50 shadow-sm">
                         + Add New Data</a>
                 </div>
             </div>
         </div>
+
+        @if (session('success'))
+            <div class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-300 text-green-700 rounded shadow-lg px-6 py-4 flex items-center gap-2 animate-fade-in"
+                x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show" x-transition>
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{{ session('success') }}</span>
+                <button @click="show = false" class="ml-4 text-green-700 hover:text-green-900 focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        @endif
 
         <section class="container px-auto py-6 mx-auto">
             <div class="flex flex-col mt-6">
@@ -56,25 +71,21 @@
                                 <thead class="bg-gradient-to-tr from-fuchsia-500 to-pink-500">
                                     <tr>
                                         <th scope="col"
-                                            class="py-3.5 px-16 text-sm font-semibold uppercase text-left rtl:text-right text-neutral-50">
+                                            class="py-3 px-16 text-sm font-semibold capitalize text-left rtl:text-right text-neutral-50">
                                             <div class="flex items-center gap-x-3">
-                                                <span>Produk</span>
+                                                <span>Nama Produk</span>
                                             </div>
                                         </th>
 
-                                        <th scope="col"
-                                            class="py-3.5 px-16 text-sm font-semibold uppercase text-left rtl:text-right text-neutral-50">
-                                            <div class="flex items-center gap-x-3">
-                                                <span>Kriteria</span>
-                                            </div>
-                                        </th>
-
-                                        <th scope="col"
-                                            class="py-3.5 px-16 text-sm font-semibold uppercase text-left rtl:text-right text-neutral-50">
-                                            <div class="flex items-center gap-x-3">
-                                                <span>Nilai</span>
-                                            </div>
-                                        </th>
+                                        @foreach ($kriterias as $kriteria)
+                                            <th scope="col"
+                                                class="py-3.5 px-6 text-sm font-semibold capitalize text-neutral-50">
+                                                <div class="flex items-center gap-x-3">
+                                                    <span>{{ $kriteria->nama_kriteria }}
+                                                        <br>(Bobot : {{ $kriteria->bobot }})</span>
+                                                </div>
+                                            </th>
+                                        @endforeach
 
                                         <th scope="col" class="relative py-3.5 px-20">
                                             <span class="sr-only">Edit</span>
@@ -83,26 +94,27 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-slate-200">
-                                    @foreach ($nilai as $nk)
+                                    @foreach ($produks as $produk)
                                         <tr>
-                                            <td class="px-auto py-4 text-sm">
+                                            <td class="px-8 py-4 text-sm">
                                                 <div class="flex items-center gap-x-2">
                                                     <img class="w-10 h-10 rounded-md"
-                                                        src="{{ $nk->produk->gambar ? asset('storage/' . $nk->produk->gambar) : asset('images/default.png') }}"
+                                                        src="{{ $produk->gambar ? asset('storage/' . $produk->gambar) : asset('images/default.png') }}"
                                                         onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';" />
                                                     <div>
-                                                        <h2 class="font-semibold">{{ $nk->produk->nama }}</h2>
+                                                        <h2 class="font-semibold">{{ $produk->nama }}</h2>
                                                         <p class="text-sm text-gray-500">30ml</p>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-12 py-4 text-sm font-semibold text-gray-500">
-                                                {{ $nk->kriteria->nama_kriteria }}</td>
-                                            <td class="px-16 py-4 text-sm font-semibold capitalize text-gray-500">
-                                                {{ $nk->nilai }}</td>
+                                            @foreach ($kriterias as $kriteria)
+                                                <td class="px-16 py-4 text-sm whitespace-nowrap">
+                                                    {{ $data[$produk->id][$kriteria->id] ?? '-' }}
+                                                </td>
+                                            @endforeach
                                             <td class="px-12 py-4 text-sm whitespace-nowrap">
                                                 <div class="flex items-center gap-x-6">
-                                                    <form action="{{ route('alternatif.destroy', $nk->id) }}"
+                                                    <form action="{{ route('alternatif.destroy', $produk->id) }}"
                                                         method="POST"
                                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus kriteria ini?');">
                                                         @csrf
@@ -119,7 +131,7 @@
                                                         </button>
                                                     </form>
 
-                                                    <a href="{{ route('alternatif.edit', $nk->id) }}"
+                                                    <a href="{{ route('alternatif.edit', $produk->id) }}"
                                                         class="text-gray-600 hover:text-yellow-500 transition-colors duration-200 focus:outline-none"
                                                         title="Edit Produk">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
