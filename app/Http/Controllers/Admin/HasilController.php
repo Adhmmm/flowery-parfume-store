@@ -11,65 +11,62 @@ use Illuminate\Http\Request;
 
 class HasilController extends Controller
 {
-    public function hitungSAW()
+    public function index()
     {
         $kriterias = Kriteria::all();
         $produks = Produk::all();
-
-        $nilaiMatrix = [];
-        foreach ($produks as $produk) {
-            foreach ($kriterias as $kriteria) {
-                $nilai = NilaiKriteria::where('produk_id', $produk->produk_id)
-                    ->where('kriteria_id', $kriteria->kriteria_id)
-                    ->value('nilai');
-                $nilaiMatrix[$produk->produk_id][$kriteria->kriteria_id] = $nilai ?? 0;
-            }
-        }
+        $nilaiKriterias = NilaiKriteria::all();
 
         $normalisasi = [];
-        foreach ($kriterias as $k) {
-            $kolomNilai = array_column(array_map(function ($row) use ($k) {
-                return $row[$k->kriteria_id];
-            }, $nilaiMatrix), null);
-
-            $max = max($kolomNilai);
-            $min = min($kolomNilai);
-
-            foreach ($produks as $produk) {
-                if ($k->tipe_kriteria == 'benefit') {
-                    $normalisasi[$produk->produk_id][$k->kriteria_id] = $nilaiMatrix[$produk->produk_id][$k->kriteria_id] / $max;
-                } else {
-                    $normalisasi[$produk->produk_id][$k->kriteria_id] = $min / $nilaiMatrix[$produk->produk_id][$k->kriteria_id];
-                }
-            }
-        }
-
         $hasil = [];
+
+        foreach ($kriterias as $kriteria) {
+            $nilaiKriteria = $nilaiKriterias->where('kriteria_id', $kriteria->id)->pluck('nilai');
+            $max[$kriteria->id] = $nilaiKriteria->max();
+            $min[$kriteria->id] = $nilaiKriteria->min();
+        }
+
         foreach ($produks as $produk) {
-            $skor = 0;
+            $skorTotal = 0;
             foreach ($kriterias as $kriteria) {
-                $skor += $normalisasi[$produk->produk_id][$kriteria->kriteria_id] * $kriteria->bobot;
+                $nilaiProduk = $nilaiKriterias
+                    ->where('produk_id', $produk->id)
+                    ->where('kriteria_id', $kriteria->id)
+                    ->first()->nilai ?? 0;
+
+                if ($kriteria->tipe_kriteria == 'benefit') {
+                    $norm = ($max[$kriteria->id] > 0) ? $nilaiProduk / $max[$kriteria->id] : 0;
+                } else {
+                    $norm = ($nilaiProduk > 0) ? $min[$kriteria->id] / $nilaiProduk : 0;
+                }
+
+                $normalisasi[$produk->id][$kriteria->id] = $norm;
+                $skorTotal += $norm * $kriteria->bobot;
             }
-            $hasil[$produk->produk_id] = $skor;
+
+            $hasil[] = (object)[
+                'produk' => $produk,
+                'produk_id' => $produk->id,
+                'skor_total' => $skorTotal
+            ];
         }
 
-        HasilSaw::truncate();
-        arsort($hasil,);
-        $rank = 1;
-        foreach ($hasil as $produkId => $skor) {
-            HasilSaw::create([
-                'produk_id' => $produkId,
-                'skor' => $skor,
-                'rank' => $rank++
-            ]);
+        usort($hasil, function ($a, $b) {
+            return $b->skor_total <=> $a->skor_total;
+        });
+
+        foreach ($hasil as $index => $item) {
+            HasilSaw::updateOrCreate(
+                ['produk_id' => $item->produk_id],
+                [
+                    'skor' => $item->skor_total,
+                    'rank' => $index + 1
+                ]
+            );
         }
 
-        return redirect()->back()->with('success', 'Perhitungan SAW berhasil dilakukan.');
-    }
+        $hasilSaw = HasilSaw::with('produk')->orderByDesc('skor')->get();
 
-    public function hasil()
-    {
-        $hasil = HasilSaw::with('produks')->orderBy('rank')->get();
-        return view('admin.hasil.index', compact('hasil'));
+        return view('admin.hasil.index', compact('kriterias', 'normalisasi', 'hasilSaw'));
     }
 }
