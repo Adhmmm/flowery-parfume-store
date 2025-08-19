@@ -62,7 +62,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         'destroy' => 'alternatif.destroy'
     ]);
 
-    Route::get('/hasil', [HasilController::class, 'hasil'])->name('hasil');
+    Route::get('/hasil', [HasilController::class, 'index'])->name('hasil.index');
 });
 
 Route::middleware(['auth', 'role:customer'])->group(function () {
