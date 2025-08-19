@@ -133,7 +133,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-8 py-4 text-sm">{{ $produk->jenis_aroma }}</td>
+                                            <td class="px-16 py-4 text-sm">{{ $produk->jenis_aroma }}</td>
                                             <td class="px-14 py-4 text-sm capitalize">{{ $produk->rating_produk }}</td>
                                             <td class="px-16 py-4 text-sm">{{ $produk->penjualan }}</td>
                                             <td class="px-8 py-4 text-sm">Rp {{ number_format($produk->harga) }}</td>
