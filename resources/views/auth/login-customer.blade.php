@@ -3,8 +3,6 @@
         <div class="bg-white border border-gray-300 rounded shadow-sm w-full max-w-xl px-8 py-10">
             <h2 class="text-6xl font-semibold text-gray-800 mb-auto">Login</h2>
             <p class="text-xl text-gray-500 mt-3">Please log in to your account.</p>
-
-            <!-- Display errors if any -->
             @if ($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                     <ul class="list-disc list-inside">
@@ -14,11 +12,8 @@
                     </ul>
                 </div>
             @endif
-
             <form method="POST" action="{{ route('login.customer.post') }}" class="space-y-2 mt-20">
                 @csrf
-
-                <!-- Username Field -->
                 <div>
                     <x-input-label for="email" :value="__('Email')" />
                     <div class="relative">
@@ -33,8 +28,6 @@
                             placeholder="E.g. johndoe@gmail.com" required>
                     </div>
                 </div>
-
-                <!-- Password Field -->
                 <div>
                     <x-input-label for="password" :value="__('Password')" />
                     <div x-data="{ show: false }" class="relative">
@@ -47,7 +40,6 @@
                         <input :type="show ? 'text' : 'password'" name="password" id="password"
                             class="block w-full pl-10 pr-3 py-4 border border-gray-400 bg-white font-normal text-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
                             placeholder="Enter your password" required autofocus>
-
                         <button type="button" @click="show = !show"
                             class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 focus:outline-none"
                             tabindex="-1">
@@ -67,8 +59,6 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- Remember Me -->
                 <div class="flex items-center justify-between py-2 ml-2">
                     <label for="remember_me" class="inline-flex items-center">
                         <input id="remember_me" type="checkbox"
@@ -77,23 +67,17 @@
                         <span class="ml-4 text-xl text-gray-900">{{ __('Remember Me') }}</span>
                     </label>
                 </div>
-
-                <!-- Login Button -->
                 <div class="flex items-center justify-end py-4">
                     <button
                         class="w-full flex justify-center py-4 px-4 border border-transparent text-base uppercase font-medium text-zinc-50 bg-zinc-700 hover:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200">
                         {{ __('Sign In') }}
                     </button>
                 </div>
-
-                <!-- Divider -->
                 <div class="flex items-center my-6">
                     <div class="flex-grow border-t border-gray-900"></div>
                     <span class="mx-2 text-base text-gray-900">or continue with</span>
                     <div class="flex-grow border-t border-gray-900"></div>
                 </div>
-
-                <!-- Register Link -->
                 <div class="text-center py-4">
                     <p class="text-xl text-gray-600">
                         Don't have an Account?
