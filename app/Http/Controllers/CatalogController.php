@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Number;
 
 class CatalogController extends Controller
 {
@@ -23,5 +24,13 @@ class CatalogController extends Controller
         $produk = $query->get();
  
         return view('customer.catalog', ['produk' => $produk, 'jenis_aroma' => $filterJenis]);
+    }
+
+    public function show($id) {
+        $produk = Produk::with('HasilSaw')
+        ->where('id', $id)
+        ->firstOrFail();
+
+        return view('customer.catalog-detail', compact('produk'));
     }
 }

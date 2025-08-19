@@ -67,6 +67,7 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::get('/customer/produk', [CustomerController::class, 'produk'])->name('customer.produk');
     Route::get('/customer/about', [CustomerController::class, 'about'])->name('customer.about');
     Route::get('/customer/catalog', [CatalogController::class, 'index'])->name('customer.catalog');
+    Route::get('/customer/{id}/catalog-detail', [CatalogController::class, 'show'])->name('customer.catalog-detail');
     Route::get('/customer/contact', [CustomerController::class, 'contact'])->name('customer.contact');
 });
 

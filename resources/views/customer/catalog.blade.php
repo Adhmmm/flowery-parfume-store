@@ -34,7 +34,8 @@
         <div class="flex-1">
             <div class=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($produk as $item)
-                    <a href="#" class="group block overflow-hidden  border">
+                    <a href="{{ route('customer.catalog-detail', $item->id) }}"
+                        class="group block overflow-hidden border">
                         <img alt="{{ $item->nama }}" src="{{ asset('storage/' . $item->gambar) }}"
                             class="md:h-80 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72" />
 
