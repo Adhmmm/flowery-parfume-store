@@ -2,15 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CatalogController;
+
 use App\Http\Controllers\ProfileController;
 
-use App\Http\Controllers\Customer\CustomerController;
-
+use App\Http\Controllers\Admin\HasilController;
+use App\Http\Controllers\Admin\ProdukController;
+use App\Http\Controllers\Admin\KriteriaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AlternatifController;
-use App\Http\Controllers\Admin\KriteriaController;
-use App\Http\Controllers\Admin\ProdukController;
-use App\Http\Controllers\Admin\HasilController;
+use App\Http\Controllers\Customer\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +27,6 @@ use App\Http\Controllers\Admin\HasilController;
 Route::get('/', function () {
     return view('customer.home');
 })->name('customer.home');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -69,7 +66,7 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::get('/customer', [CustomerController::class, 'home'])->name('customer.home');
     Route::get('/customer/produk', [CustomerController::class, 'produk'])->name('customer.produk');
     Route::get('/customer/about', [CustomerController::class, 'about'])->name('customer.about');
-    Route::get('/customer/catalog', [CustomerController::class, 'catalog'])->name('customer.catalog');
+    Route::get('/customer/catalog', [CatalogController::class, 'index'])->name('customer.catalog');
     Route::get('/customer/contact', [CustomerController::class, 'contact'])->name('customer.contact');
 });
 
