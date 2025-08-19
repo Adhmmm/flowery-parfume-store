@@ -20,7 +20,7 @@ class Produk extends Model
 
     public function NilaiKriteria()
     {
-        return $this->belongsTo(NilaiKriteria::class, 'produk_id', 'id');
+        return $this->hasMany(NilaiKriteria::class, 'produk_id', 'id');
     }
 
     public function HasilSaw()
