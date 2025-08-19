@@ -19,7 +19,7 @@
             {{-- Gambar Produk --}}
             <div>
                 <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama }}"
-                    class="w-[700px] h-[700px] rounded-lg object-cover">
+                    class="w-[700px] h-[700px] rounded-lg object-cover shadow-lg">
             </div>
 
             {{-- Info Produk --}}
