@@ -1,18 +1,3 @@
-{{-- <x-customer-layout>
-    <section class="mx-auto px-4 md:px-24 lg:px-48 my-8 flex">
-        <div>
-            <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama }}"
-                class="h-80 rounded-md shadow-sm">
-        </div>
-        <div>
-            <h3 class="text-4xl font-semibold mb-3">{{ $produk->nama }}</h3>
-            <h5 class="text-2xl font-medium text-gray-600">Rp {{ number_format($produk->harga, 0, ',', '.') }}</h5>
-
-            <h6 class="text-xl font-medium ">Product Desctiption</h6>
-            <p>{{ $produk->deskripsi }}</p>
-        </div>
-    </section>
-</x-customer-layout> --}}
 <x-customer-layout>
     <section class="mx-auto px-4 md:px-24 lg:px-48 py-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">

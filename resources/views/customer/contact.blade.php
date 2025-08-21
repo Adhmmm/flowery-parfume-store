@@ -37,9 +37,10 @@
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
 
-                                <span class="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">
-                                    Cecilia Chapman 711-2880 Nulla
-                                    St. Mankato Mississippi 96522
+                                <span class="mx-2 text-gray-700  w-72 dark:text-gray-400">
+                                    Jl. Ki Ageng Tepak, Gg. Petapean Blok
+                                    C No. 03 RT/RW 17/06, Desa Semplo,
+                                    Palimanan, Kabupaten Cirebon, Jawa Barat 45161
                                 </span>
                             </p>
 
@@ -51,7 +52,7 @@
                                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
 
-                                <span class="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">(257) 563-7401</span>
+                                <span class="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">(+62) 82-1163-33282</span>
                             </p>
 
                             <p class="flex items-start -mx-2">
@@ -62,7 +63,7 @@
                                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
 
-                                <span class="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">acb@example.com</span>
+                                <span class="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">floweryparfume@gmail.com</span>
                             </p>
                         </div>
 
