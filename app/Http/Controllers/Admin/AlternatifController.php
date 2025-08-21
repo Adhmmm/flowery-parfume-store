@@ -87,18 +87,8 @@ class AlternatifController extends Controller
                 ]
             );
         }
-        // $request->validate([
-        //     'produk_id' => 'required',
-        //     'kriteria_id' => 'required',
-        //     'nilai' => 'required|numeric|min:0'
-        // ]);
-
-        // $nilaiKriterias = NilaiKriteria::findOrFail($id);
-        // $nilaiKriterias->update($request->all());
-
         return redirect()->route('alternatif.index')->with('success', 'Nilai Kriteria berhasil diperbarui');
     }
-
     /**
      * Remove the specified resource from storage.
      */
