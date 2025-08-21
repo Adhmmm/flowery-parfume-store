@@ -35,7 +35,7 @@
                 <p class="text-xl sm:text-xl text-white mb-6">
                     Discover your perfect fragrance from our curated collection
                 </p>
-                <a href="{{ route('customer.produk') }}"
+                <a href="{{ route('customer.catalog') }}"
                     class="inline-block px-6 py-3 border border-white text-white font-semibold hover:bg-white hover:text-black transition">
                     SHOP NOW
                 </a>
