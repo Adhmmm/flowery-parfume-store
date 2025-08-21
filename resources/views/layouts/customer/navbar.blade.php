@@ -45,7 +45,7 @@
                 <div class="flex flex-col justify-between gap-2 md:flex-row md:mx-0">
                     @guest
                         <div
-                            class="px-5 py-1.5 rounded-full shadow-sm border border-zinc-950 transition-colors duration-300 transform hover:bg-zinc-700 hover:text-white">
+                            class="px-5 py-1.5 rounded-full shadow-sm border border-zinc-950 transition-colors duration-300 transform hover:bg-zinc-900 hover:text-white">
                             <div class="flex items-center justify-between gap-2">
                                 <a href="{{ route('login.customer') }}" class="text-xl sm:text-xl md:text-xl font-normal ">
                                     Sign In

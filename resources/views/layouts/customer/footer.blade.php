@@ -61,8 +61,8 @@
                             </a>
                         </li>
                     @endauth
-                    <li><a href="#" class="text-gray-600 hover:text-gray-300 dark:text-gray-200">About Us</a></li>
-                    <li><a href="#" class="text-gray-600 hover:text-gray-300 dark:text-gray-200">Contact</a></li>
+                    <li><a href="{{ route('customer.about') }}" class="text-gray-600 hover:text-gray-300 dark:text-gray-200">Blog</a></li>
+                    <li><a href="{{ route('customer.contact') }}" class="text-gray-600 hover:text-gray-300 dark:text-gray-200">Contact</a></li>
                 </ul>
             </div>
 
